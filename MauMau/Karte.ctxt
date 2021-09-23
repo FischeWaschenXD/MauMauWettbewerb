@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=Karte
+comment0.text=\r\n\ Die\ Klasse\ Karte\ dient\ als\ Basis\ des\ digitalen\ Kartenspiels\ MauMau.\r\n\ Sie\ umfasst\ die\ Daten\ auf\ einer\ Karte\ und\ Informationsr\u00FCckgaben\ zu\ dieser\ Karte.\r\n\ \r\n\ @author\ Hein\ \r\n\ @version\ 09.03.16\ V1.2\r\n
+comment1.params=z\ t
+comment1.target=Karte(int,\ java.lang.String)
+comment1.text=\r\n\ Konstruktor\ f\u00FCr\ eine\ neue\ Karte.\r\n\ Der\ Konstruktor\ initialisiert\ die\ globalen\ Variablen\ und\ bestimmt\ somit\ jede\ Karte\ als\ Teil\ eines\ Sets\ eindeutig.\r\n\ \r\n\ @param\ int\ z\ -\ Die\ Zahl\ der\ neuen\ Karte\ auf\ Basis\ der\ Kodierung,\ siehe\ oben.\r\n\ @param\ String\ t\ -\ Die\ Farbe\ und\ Typvariante\ der\ neuen\ Karte\ auf\ Basis\ der\ Kodierung,\ siehe\ oben.\r\n
+comment2.params=
+comment2.target=int\ getZahl()
+comment2.text=\r\n\ Getter-Methode\ f\u00FCr\ die\ globale\ Variable\ zahl.\r\n\ Gibt\ die\ Zahl\ der\ aktuellen\ Karte\ dem\ Anfrage-Steller\ zur\u00FCck.\r\n\ \r\n\ @return\ int\ zahl\ -\ Die\ Zahl\ in\ Form\ der\ Kodierung\ des\ Kartenwertes,\ siehe\ oben.\r\n
+comment3.params=
+comment3.target=java.lang.String\ getTyp()
+comment3.text=\r\n\ Getter-Methode\ f\u00FCr\ die\ globale\ Variable\ typ.\r\n\ Gibt\ den\ Typ\ der\ aktuellen\ Karte\ dem\ Anfrage-Steller\ zur\u00FCck.\r\n\ \r\n\ @return\ String\ typ\ -\ Der\ Typ\ in\ Form\ der\ Kodierung\ der\ Kartenvariante,\ siehe\ oben.\r\n
+comment4.params=
+comment4.target=java.lang.String\ karte()
+comment4.text=\r\n\ Methode\ zur\ R\u00FCckgabe\ der\ eindeutigen\ Kartenbezeichnung.\r\n\ Gibt\ die\ Zahl\ und\ den\ Typ\ der\ Karte\ in\ Form\ eine\ String\ dem\ Anfrage-Steller\ zur\u00FCck.\r\n\ \r\n\ @return\ String\ ausgabe\ -\ Ein\ Zeichenstring\ bestehend\ auf\ der\ Kartenvariante\ und\ dem\ Kartenwert.\r\n
+numComments=5

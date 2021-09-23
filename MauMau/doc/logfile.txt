@@ -1,0 +1,39 @@
+Class documentation
+<---- javadoc command: ---->
+C:\Program Files\BlueJ\jdk\bin\javadoc.exe
+-author
+-version
+-nodeprecated
+-package
+-Xdoclint:none
+-noindex
+-notree
+-nohelp
+-nonavbar
+-source
+11
+-classpath
+C:\Program Files\BlueJ\lib\bluejcore.jar;C:\Program Files\BlueJ\lib\junit-4.11.jar;C:\Program Files\BlueJ\lib\hamcrest-core-1.3.jar;C:\Program Files\BlueJ\lib\lang-stride.jar;C:\Program Files\BlueJ\lib\javafx\lib\javafx.base.jar;C:\Program Files\BlueJ\lib\javafx\lib\javafx.controls.jar;C:\Program Files\BlueJ\lib\javafx\lib\javafx.fxml.jar;C:\Program Files\BlueJ\lib\javafx\lib\javafx.graphics.jar;C:\Program Files\BlueJ\lib\javafx\lib\javafx.media.jar;C:\Program Files\BlueJ\lib\javafx\lib\javafx.properties.jar;C:\Program Files\BlueJ\lib\javafx\lib\javafx.swing.jar;C:\Program Files\BlueJ\lib\javafx\lib\javafx.web.jar;G:\Informatik Q IfL1 Hein SJ2123\2021-09-01. Q1-I MauMau Gruppenarbeit\MauMau
+-d
+G:\Informatik Q IfL1 Hein SJ2123\2021-09-01. Q1-I MauMau Gruppenarbeit\MauMau\doc
+-encoding
+UTF-8
+-charset
+UTF-8
+G:\Informatik Q IfL1 Hein SJ2123\2021-09-01. Q1-I MauMau Gruppenarbeit\MauMau\Karte.java
+<---- end of javadoc command ---->
+Loading source file G:\Informatik Q IfL1 Hein SJ2123\2021-09-01. Q1-I MauMau Gruppenarbeit\MauMau\Karte.java...
+Constructing Javadoc information...
+Standard Doclet version 11.0.2
+Building tree for all the packages and classes...
+Generating G:\Informatik Q IfL1 Hein SJ2123\2021-09-01. Q1-I MauMau Gruppenarbeit\MauMau\doc\Karte.html...
+G:\Informatik Q IfL1 Hein SJ2123\2021-09-01. Q1-I MauMau Gruppenarbeit\MauMau\Karte.java:22: warning - @param argument "int" is not a parameter name.
+G:\Informatik Q IfL1 Hein SJ2123\2021-09-01. Q1-I MauMau Gruppenarbeit\MauMau\Karte.java:23: warning - @param argument "String" is not a parameter name.
+Generating G:\Informatik Q IfL1 Hein SJ2123\2021-09-01. Q1-I MauMau Gruppenarbeit\MauMau\doc\package-summary.html...
+Generating G:\Informatik Q IfL1 Hein SJ2123\2021-09-01. Q1-I MauMau Gruppenarbeit\MauMau\doc\constant-values.html...
+Building index for all the packages and classes...
+Building index for all classes...
+Generating G:\Informatik Q IfL1 Hein SJ2123\2021-09-01. Q1-I MauMau Gruppenarbeit\MauMau\doc\allclasses.html...
+Generating G:\Informatik Q IfL1 Hein SJ2123\2021-09-01. Q1-I MauMau Gruppenarbeit\MauMau\doc\allclasses.html...
+Generating G:\Informatik Q IfL1 Hein SJ2123\2021-09-01. Q1-I MauMau Gruppenarbeit\MauMau\doc\index.html...
+2 warnings
