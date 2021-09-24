@@ -1,7 +1,0 @@
-#BlueJ class context
-comment0.target=Spieler_KI
-comment1.params=n\ pName\ stapelZ\ stapelA\ s
-comment1.target=Spieler_KI(int,\ java.lang.String,\ MyArrayList,\ MyArrayList,\ Spiel)
-comment2.params=zahl\ typ
-comment2.target=void\ karteSpielen(int,\ java.lang.String)
-numComments=3
