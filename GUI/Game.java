@@ -33,11 +33,6 @@ public class Game {
 	
 	private JLabel playerNow;
 	private JLabel playerNumber;
-
-	private JFrame consol;
-	private JTextArea consolText;
-	private JTextField consolInput;
-	private JButton consolButton;
 	
 	public Game() {
 		
@@ -53,7 +48,6 @@ public class Game {
 			public void starten(int spielerZahl, String mcName, String[] names, boolean[] ki) {
 				postInit(spielerZahl, mcName, names, ki);
 				frame.setVisible(true);
-				consol.setVisible(true);
 				
 				karteHinzufuegen(Cards.HERZ_12, 0);
 				karteHinzufuegen(Cards.HERZ_9, 0);
@@ -77,36 +71,6 @@ public class Game {
 	}
 	
 	private void preInit() {
-consol = new JFrame("Consol");
-		
-		consol.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		consol.setMinimumSize(new Dimension(400, 250));
-		consol.setPreferredSize(new Dimension(400, 250));
-		consol.setLocationRelativeTo(null);
-		consol.setResizable(false);
-		
-		consol.setLayout(new BorderLayout());
-		consolText = new JTextArea();
-		consolText.setEditable(false);
-		consolText.setLineWrap(true);
-		consolText.setWrapStyleWord(true);
-		JScrollPane scroll = new JScrollPane(consolText);
-		
-		consolButton = new JButton("Senden");
-		consol.setVisible(true);
-		consolInput = new JTextField();
-		consolInput.setPreferredSize(new Dimension(200, 27));
-		
-		JPanel bottomBar = new JPanel();
-		
-		bottomBar.add(consolInput);
-		bottomBar.add(consolButton);
-		
-		consol.add(scroll, BorderLayout.CENTER);
-		consol.add(bottomBar, BorderLayout.SOUTH);
-		
-		
-		
 		Dimension playFieldSize = new Dimension(screenSize.width / 5 * 4, screenSize.height);
 		
 		//Text Ausgabe
