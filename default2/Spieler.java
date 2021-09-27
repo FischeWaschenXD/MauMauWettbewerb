@@ -1,3 +1,5 @@
+package default2;
+
 import java.util.Scanner;
 
 /**

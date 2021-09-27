@@ -1,3 +1,5 @@
+package default2;
+
 /**
  * Die Klasse Karte dient als Basis des digitalen Kartenspiels MauMau.
  * Sie umfasst die Daten auf einer Karte und Informationsrückgaben zu dieser Karte.

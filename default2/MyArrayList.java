@@ -1,3 +1,5 @@
+package default2;
+
 public class MyArrayList<ContentType>
 {
     Object[] meinFeld;

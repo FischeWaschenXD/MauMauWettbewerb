@@ -3,12 +3,18 @@ package GUI;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -16,12 +22,14 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import Utils.StartCallBack;
+import default2.Karte;
 import Utils.Card;
 import Utils.CardButton;
 import Utils.CardPanel;
 import Utils.Cards;
+import Utils.GUIWindow;
 
-public class Game {
+public class Game extends GUIWindow {
 	private JFrame frame;
 	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	
@@ -34,7 +42,10 @@ public class Game {
 	private JLabel playerNow;
 	private JLabel playerNumber;
 	
-	public Game() {
+	private GUIVerwaltung verwaltung;
+	
+	public Game(GUIVerwaltung verwaltung) {
+		this.verwaltung = verwaltung;
 		
 		frame = new JFrame("Test");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -118,8 +129,19 @@ public class Game {
 		
 		playField.add(handKartenScroll);
 		
+		JMenuBar menuBar = new JMenuBar();
+		JMenuItem item = new JMenuItem("Zu Konsole wechseln");
+		item.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				verwaltung.eingabeMethodeAendern(true);
+			}
+		});
+		menuBar.add(item);
 		
 		
+		frame.setJMenuBar(menuBar);
 		frame.add(ausgabePanel, BorderLayout.CENTER);
 		frame.add(playField, BorderLayout.EAST);
 	}
@@ -135,6 +157,7 @@ public class Game {
 		neueHand();
 		handKartenScroll.setViewportView(handKarten[0]);
 		playerNumber.setText("Spieler Anzahl: " + spielerZahl);
+		playerNow.setText("Aktueller Spieler: " + mcName);
 	}
 	
 	/**
@@ -179,9 +202,27 @@ public class Game {
 	public void addLog(String text, boolean zeilenumbruch) {
 		ausgabeFeld.append(text + ((zeilenumbruch) ? "\n" : ""));
 	}
+	@Override
+	public void spielerWechseln(int player) {
+		updateHand(player);
+		String[] options = {"OK"};
+		handKartenScroll.removeAll(); //TODO das macht immer alles kaputt also kp ob das funktioniert sonst remove index nutzen
+		handKartenScroll.repaint();
+		frame.setVisible(true);
+		JOptionPane.showOptionDialog(null, "Nun ist Spieler ... dran", "Näachster Spieler", JOptionPane.PLAIN_MESSAGE, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+		//TODO spielernamen hinzufügen
+		handKartenScroll.setViewportView(handKarten[player]);
+	}
 	
-	public void changeCurrentPlayer(int player) {
-		//TODO implementation
+	private void updateHand(int spieler) {
+		ArrayList<Karte> hand = verwaltung.getHand(spieler);
+		handKarten[spieler] = new JPanel();
+		handKarten[spieler].setLayout(new BoxLayout(handKarten[spieler], BoxLayout.X_AXIS));
+		for(Karte karte : hand) {
+			CardButton card = new CardButton();
+			card.display(Cards.valueOf(karte.getTyp().toUpperCase() + "_" + karte.getZahl()));
+			handKarten[spieler].add(card);
+		}
 	}
 	
 	/**
@@ -191,7 +232,8 @@ public class Game {
 	 * @param names die namen aller Spieler
 	 * @param score die Punkte aller Spieler
 	 */
-	private int displayResult(String[] names, int[] score) {
+	@Override
+	public int displayResult(String[] names, int[] score) {
 		Object[] options = {"Yes Daddy", "Yes but new Round", "I gotta go now"};
 		
 		StringBuilder sb = new StringBuilder();
@@ -201,6 +243,16 @@ public class Game {
 		}
 		sb.append("\nMöchtest du nochmal Spielen?");
 		return JOptionPane.showOptionDialog(null, sb.toString(), "Das Spiel ist zuende", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+	}
+	
+	@Override
+	public void hide() {
+		frame.setVisible(false);
+	}
+	
+	@Override
+	public void show() {
+		frame.setVisible(true);
 	}
 	
 	//TODO spielerHinzufügen Methode

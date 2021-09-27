@@ -1,3 +1,5 @@
+package default2;
+
 public class Spieler_KI extends Spieler
 {
     public Spieler_KI(int n, String pName, MyArrayList<Karte> stapelZ, MyArrayList<Karte> stapelA, Spiel s, boolean pIstMensch)

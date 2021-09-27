@@ -1,4 +1,6 @@
-import GUI.Game;
+package default2;
+
+import GUI.GUIVerwaltung;
 
 public class Spiel
 {
@@ -6,7 +8,6 @@ public class Spiel
     private Spieler[] rSpielerliste;
     private int aAnzahlDerSpieler;
     private int aAnzahlDerCOM;
-    private Game rGUI;
     private String[] aNamen;
 
     //Merker für den aktuellen Spieler und ein mögliches Aussetzen des nächsten Zuges.
@@ -16,7 +17,7 @@ public class Spiel
     //Zwei Stapel im System, einer als Ablagestapel, einer als Nachziehstapel.
     private MyArrayList<Karte> ablegeStapel;
     private MyArrayList<Karte> ziehStapel;
-    private Game rGame;
+    private GUIVerwaltung rGame;
 
     public Spiel(int pAnzahlDerSpieler, int pAnzahlDerCOM, String[] pNamen)
     {
@@ -38,7 +39,7 @@ public class Spiel
         
         aNamen = pNamen;
         
-        rGame = new Game();
+        rGame = new GUIVerwaltung();
     }
 
     private void generiereKarten(){
