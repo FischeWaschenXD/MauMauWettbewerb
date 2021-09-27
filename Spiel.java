@@ -16,6 +16,7 @@ public class Spiel
     //Zwei Stapel im System, einer als Ablagestapel, einer als Nachziehstapel.
     private MyArrayList<Karte> ablegeStapel;
     private MyArrayList<Karte> ziehStapel;
+    private Game rGame;
 
     public Spiel(int pAnzahlDerSpieler, int pAnzahlDerCOM, String[] pNamen)
     {
@@ -36,6 +37,8 @@ public class Spiel
         aAnzahlDerCOM = pAnzahlDerCOM;
         
         aNamen = pNamen;
+        
+        rGame = new Game();
     }
 
     private void generiereKarten(){
@@ -110,7 +113,7 @@ public class Spiel
         String lName;
         //Einrichten von n menschlichen Spielern
         for(int i = 0; i < rSpielerliste.length; i++){
-            lSpieler = new Spieler(i, aNamen[i], ziehStapel, ablegeStapel, this);
+            lSpieler = new Spieler(i, aNamen[i], ziehStapel, ablegeStapel, this, true);
             rSpielerliste[i] = lSpieler;
         }
         aussetzen = false;
@@ -124,12 +127,12 @@ public class Spiel
         if(pAnzahlDerCOM < (rSpielerliste.length - 1)){
             for(int i = 0; i < rSpielerliste.length; i++){
                 if(lAnzahlDerCOM > 0){
-                    lSpieler = new Spieler_KI(i, aNamen[i], ziehStapel, ablegeStapel, this);
+                    lSpieler = new Spieler_KI(i, aNamen[i], ziehStapel, ablegeStapel, this, false);
                     rSpielerliste[i] = lSpieler;
                     lAnzahlDerCOM--;
                 }
                 else{
-                    lSpieler = new Spieler(i, aNamen[i], ziehStapel, ablegeStapel, this);
+                    lSpieler = new Spieler(i, aNamen[i], ziehStapel, ablegeStapel, this, true);
                     rSpielerliste[i] = lSpieler;
                 }
             }
@@ -157,12 +160,15 @@ public class Spiel
         System.out.println("");
         System.out.println("Decke die erste Karte des Spiels auf:");
         Karte merker = (Karte)ziehStapel.get(0);
+        if(merker.getZahl() == 9){
+            richtungsWechsel();
+        }
         ablegeStapel.add(merker);
         ziehStapel.remove(0);
         System.out.println("BEGINN des Spiels mit der KARTE " + merker.karte());
-
+        
         //Solange es keinen Sieger gibt wird gespielt, notfalls unendlich oft.
-        while(sieg() == 0)
+        while(sieg() == null)
         {
             //Der nächste Spieler am Zug wird angsagt.
             System.out.println("");
@@ -171,7 +177,7 @@ public class Spiel
             //Der Spieler müsste möglicherweise aussetzen ...
             if(aussetzen){
                 System.out.println("Ich muss eine Runde aussetzen, die 8 liegt oben!");
-                spielerAmZug = (spielerAmZug+1)%2;
+                spielerAmZug = (spielerAmZug+1)%4;
                 aussetzen = false;
             }
 
@@ -179,15 +185,14 @@ public class Spiel
             else
             {
                 spielZug();
-                spielerAmZug = (spielerAmZug+1)%2;
+                spielerAmZug = (spielerAmZug+1)%4;
             }
         }
 
         //Wenn die Spiel-Schleife beendet ist, gibt es einen Sieger. Dieser muss bekannt gegeben werden.
-        if (sieg() == 1 || sieg() == 4)
-            System.out.println("SIEG für Spieler 1!");
-        else if (sieg() == 2 || sieg() == 3)
-            System.out.println("SIEG für Spieler 2!");
+        if (!(sieg() == null)){
+            rGame.gewonnen(sieg());
+        }
     }
 
     private Spieler[] sieg(){
@@ -261,5 +266,15 @@ public class Spiel
     public void gibAussetzImpuls(){
         //Mit dieser Methode kann ein Spieler den Aussetz-Impuls geben, mit dem der nächste Spieler der Reihe einmal übersprungen wird.
         aussetzen = true;
+    }
+    
+    public void richtungsWechsel(){
+        Spieler[] lHilfsfeld = new Spieler[rSpielerliste.length];
+        int lIndex = 0;
+        for(int i = rSpielerliste.length-1; i>=0; i--){
+            lHilfsfeld[lIndex] = rSpielerliste[i];
+            lIndex++;
+        }
+        rSpielerliste = lHilfsfeld;
     }
 }
