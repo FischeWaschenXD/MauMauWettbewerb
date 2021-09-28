@@ -181,6 +181,33 @@ public class Consol extends GUIWindow{
 	}
 	
 	@Override
+	public int amZug() {
+		print("Welche Karte Möchtest du Spielen\nDie Karten sind von links nach rechts mit eins beginned aufgelisted\n0 bedeuted Nachziehen\n");
+		int kartenNummer = 0;
+		String s = lastAdd;
+		while(kartenNummer == 0) {
+			if(s != lastAdd) {
+				try {
+					TimeUnit.MICROSECONDS.sleep(10);
+					kartenNummer = Integer.parseInt(lastAdd);
+//					if(anzahlExtraSpieler < 1 || anzahlExtraSpieler > 3) {
+//						print("Du kannst nur zwischen 1 und 3 Mitspieler haben\n");
+//						anzahlExtraSpieler = 0;
+//					}
+				}catch(Exception e) {
+					print("Bitte gib eine Zahl an\n");
+				}
+				s = lastAdd;
+			}
+			//das bracht man sonst crasht die ComplepableFuture und man bekommt kein ergebniss
+			try {
+				TimeUnit.MICROSECONDS.sleep(10);
+			}catch (InterruptedException e) {}
+		}
+		return kartenNummer;
+	}
+	
+	@Override
 	public void spielerWechseln(int spieler) {
 		clear();
 		print("Bist du Spieler"); //TODO spieleranmen Einfügen
@@ -218,19 +245,13 @@ public class Consol extends GUIWindow{
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
 	private String[] generateCard(int rank, String suits) {
 		String[] karteGanz = 
 			{"┌───────────┐",
 			"│" + toRank(rank, true) + "│",
 			"│                      │",
 			"│                      │",
-			"│                      │",
+			"│         " + '\u2009' + getSuits(suits) + '\u200A' + "         │",
 			"│                      │",
 			"│                      │",
 			"│" + toRank(rank, false) + "│",
@@ -238,18 +259,18 @@ public class Consol extends GUIWindow{
 		return karteGanz;
 	}
 	
-	private String getSuits(String suits) {
+	private char getSuits(String suits) {
 		switch(suits) {
 		case "Pik":
-			return "";
+			return '\u2664';
 		case "Herz":
-			return "";
+			return '\u2661';
 		case "Kreuz":
-			return "";
+			return '\u2667';
 		case "Karo":
-			return "";
+			return '\u2662';
 		default:
-			return null;
+			return ' ';
 		}
 	}
 	

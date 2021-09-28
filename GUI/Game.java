@@ -6,6 +6,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+import java.util.Scanner;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -44,6 +46,8 @@ public class Game extends GUIWindow {
 	
 	private GUIVerwaltung verwaltung;
 	
+	public int kardPlaced;
+	
 	public Game(GUIVerwaltung verwaltung) {
 		this.verwaltung = verwaltung;
 		
@@ -72,6 +76,8 @@ public class Game extends GUIWindow {
 		});
 		
 		preInit();
+		
+		spielerWechseln(0);
 	}
 	
 	private void neueHand() {
@@ -109,7 +115,7 @@ public class Game extends GUIWindow {
 		
 		
 		JPanel bigCards = new JPanel();
-		CardButton headsDownCard = new CardButton();
+		CardButton headsDownCard = new CardButton(0, this);
 		headsDownCard.display(Cards.CARD_BACK, true);
 		headsUpCard = new CardPanel();
 		headsUpCard.display(Cards.CARD_BACK, true);
@@ -166,7 +172,7 @@ public class Game extends GUIWindow {
 	 * @param player der Spieler
 	 */
 	public void karteHinzufuegen(Cards card, int player) {
-		CardButton karte = new CardButton();
+		CardButton karte = new CardButton(verwaltung.getHand(player).size(), this);
 		karte.display(card);
 		handKarten[player].add(karte);
 		handKarten[player].repaint();
@@ -219,7 +225,7 @@ public class Game extends GUIWindow {
 		handKarten[spieler] = new JPanel();
 		handKarten[spieler].setLayout(new BoxLayout(handKarten[spieler], BoxLayout.X_AXIS));
 		for(Karte karte : hand) {
-			CardButton card = new CardButton();
+			CardButton card = new CardButton(verwaltung.getHand(spieler).size(), this);
 			card.display(Cards.valueOf(karte.getTyp().toUpperCase() + "_" + karte.getZahl()));
 			handKarten[spieler].add(card);
 		}
@@ -253,6 +259,20 @@ public class Game extends GUIWindow {
 	@Override
 	public void show() {
 		frame.setVisible(true);
+	}
+	
+	@Override
+	public int amZug() {
+		kardPlaced = -1;
+		while(kardPlaced == -1) {
+			try {
+				TimeUnit.MICROSECONDS.sleep(10);
+			} catch (InterruptedException e) {}
+		}
+		
+		
+		
+		return 0;
 	}
 	
 	//TODO spielerHinzufügen Methode
