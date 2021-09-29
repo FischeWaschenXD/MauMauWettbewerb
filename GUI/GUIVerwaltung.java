@@ -53,7 +53,7 @@ public class GUIVerwaltung {
 		int[] punkte = new int[spieler.length];
 		for(int i = 0; i < spieler.length; i++) {
 			names[i] = spieler[i].getName();
-			punkte[i] = spieler[i].getPunkte();
+			punkte[i] = spieler[i].berechnePunkte();
 		}
 		window.displayResult(names, punkte);
 	}

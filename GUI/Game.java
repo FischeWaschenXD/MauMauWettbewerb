@@ -25,6 +25,7 @@ import javax.swing.JTextField;
 
 import Utils.StartCallBack;
 import default2.Karte;
+import default2.MyArrayList;
 import Utils.Card;
 import Utils.CardButton;
 import Utils.CardPanel;
@@ -221,12 +222,12 @@ public class Game extends GUIWindow {
 	}
 	
 	private void updateHand(int spieler) {
-		ArrayList<Karte> hand = verwaltung.getHand(spieler);
+		MyArrayList<Karte> hand = verwaltung.getHand(spieler);
 		handKarten[spieler] = new JPanel();
 		handKarten[spieler].setLayout(new BoxLayout(handKarten[spieler], BoxLayout.X_AXIS));
-		for(Karte karte : hand) {
+		for(int i = 0; i < hand.size(); i++) {
 			CardButton card = new CardButton(verwaltung.getHand(spieler).size(), this);
-			card.display(Cards.valueOf(karte.getTyp().toUpperCase() + "_" + karte.getZahl()));
+			card.display(Cards.valueOf(hand.get(i).getTyp().toUpperCase() + "_" + hand.get(i).getZahl()));
 			handKarten[spieler].add(card);
 		}
 	}

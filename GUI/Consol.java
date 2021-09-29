@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import Utils.GUIWindow;
 import Utils.KeyInput;
 import default2.Karte;
+import default2.MyArrayList;
 
 public class Consol extends GUIWindow{
 	private JFrame consol;
@@ -227,7 +228,7 @@ public class Consol extends GUIWindow{
 		
 		print("Deine Hand:\n");
 		
-		ArrayList<Karte> hand = verwaltung.getHand(spieler);
+		MyArrayList<Karte> hand = verwaltung.getHand(spieler);
 		String[] stringHand = {"", "", "", "", "", "", "", "", ""};
 		for(int i = 0; i < hand.size() - 1; i++) {
 			Karte karte = hand.get(i);
