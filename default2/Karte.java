@@ -114,4 +114,8 @@ public class Karte
         }
         return ausgabe;
     }
+    
+    public void setTyp(String s) {
+    	typ = s;
+    }
 }

@@ -21,6 +21,7 @@ public class Spieler
     protected String aName;
     private boolean aIstMensch;
     protected int zaehlerSieben;
+    String gF;
 
     public Spieler(int n, String pName, MyArrayList<Karte> stapelZ, MyArrayList<Karte> stapelA, Spiel s, boolean pIstMensch)
     {
