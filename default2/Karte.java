@@ -82,4 +82,36 @@ public class Karte
         }
         return ausgabe;
     }
+    
+    /**
+     * Methode zur Rückgabe der Punkte, welche durch eine Karte addiert werden.
+     * Gibt die Punkte der Karte in Form eines Integers dem Anfrage-Steller zurück.
+     * 
+     * @return int ausgabe - Ein Integer, welcher die Punkte der bestimmten Karte beinhaltet.
+     */
+    public int punkte(){
+        int ausgabe = 0;
+        switch(zahl)
+        {
+            case 7: ausgabe = 7;
+            break;
+            case 8: ausgabe = 8;
+            break;
+            case 9: ausgabe  = 9;
+            break;
+            case 10: ausgabe = 10;
+            break;
+            case 11: ausgabe = 20;
+            break;
+            case 12: ausgabe = 3;
+            break;
+            case 13: ausgabe = 4;
+            break;
+            case 14: ausgabe = 11;
+            break;
+            default: ausgabe = 0; System.err.println("FEHLER bei der Kartenkonventierung!");
+            break;
+        }
+        return ausgabe;
+    }
 }

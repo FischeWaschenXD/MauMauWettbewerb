@@ -201,4 +201,23 @@ public class Spieler
     public MyArrayList<Karte> getHandKarten() {
     	return handkarten;
     }
+    
+    public int berechnePunkte(){
+        if(!handkarten.isEmpty()){
+            int letzteZahl = ((Karte)(ablageStapel.get(ablageStapel.size()-1))).getZahl(); //Abfrage der zuletzt gespielten Karte
+            int spielerPunkte = 0;
+            spielerPunkte = spielerPunkte - ((Karte)handkarten.get(0)).punkte();
+            for(int i = 1; i < handkarten.size(); i++){
+                spielerPunkte = spielerPunkte - ((Karte)handkarten.get(i)).punkte();
+            }
+            if(letzteZahl==11){
+                    spielerPunkte = spielerPunkte - spielerPunkte; //Falls die zuletzt gespielte Karte ein Bube war, werden die Punkte verdoppelt
+                }
+            return spielerPunkte;
+        }
+        else
+        {
+            return 0;
+        }
+    }
 }
