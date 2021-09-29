@@ -20,6 +20,7 @@ public class Spieler
     protected Spiel spiel;
     protected String aName;
     private boolean aIstMensch;
+    protected int zaehlerSieben;
 
     public Spieler(int n, String pName, MyArrayList<Karte> stapelZ, MyArrayList<Karte> stapelA, Spiel s, boolean pIstMensch)
     {
@@ -31,6 +32,7 @@ public class Spieler
         ziehStapel = stapelZ;
         spiel = s;
         aIstMensch = pIstMensch;
+        zaehlerSieben = 0;
     }
 
     protected int getKartenanzahl(){
@@ -39,25 +41,18 @@ public class Spieler
 
     protected void zugMachen(){
         int letzteZahl = ((Karte)(ablageStapel.get(ablageStapel.size()-1))).getZahl();
-        String letzterTyp = ((Karte)(ablageStapel.get(ablageStapel.size()-1))).getTyp();
-        if(letzteZahl==7){
-            System.out.println("Ich musste zwei Karten als Strafe zur 7 ziehen!");
-            karteZiehenStrafeSieben();
-            karteSpielen(letzteZahl,letzterTyp);
-        }
-        else if(letzteZahl==11){
-            System.out.println("Ich kann eine beliebige Karte legen - nur keinen weiteren Buben!");
-            karteSpielen(0,"freieWahl");
-        }
-        else
-        {
-            karteSpielen(letzteZahl,letzterTyp);
-        }
+        String letzterTyp = ((Karte)(ablageStapel.get(ablageStapel.size()-1))).getTyp();      
+        
+        karteSpielen(letzteZahl,letzterTyp);
     }
 
-    protected void karteZiehenStrafeSieben(){
-        karteZiehen();
-        karteZiehen();
+    protected void karteZiehenStrafeSieben()
+    {        
+        for(int i = zaehlerSieben; i > 0; i--)
+        {
+         karteZiehen();
+         karteZiehen();
+        }
     }
 
     protected void karteZiehen(){
@@ -102,7 +97,8 @@ public class Spieler
         System.out.println(">> Wenn Sie keine gültige Zahl angeben, ziehen Sie eine Karte und Passen.");
         Scanner scanner = new Scanner(System.in);
         int eingabe;
-        if(scanner.hasNextInt()){
+        Karte gKarte;
+        if(scanner.hasNextInt()){ 
             eingabe = (int)scanner.nextInt();
             if(eingabe<=kartenanzahl){
                 if(eingabe==0){
@@ -111,6 +107,7 @@ public class Spieler
                     System.out.println(">> Können Sie nun eine Karte ausspielen?");
                     System.out.println(">> Geben Sie die 0 an, falls Sie erneut nicht können."); 
                     scanner = new Scanner(System.in);
+                    
                     eingabe = (int)scanner.nextInt();
                 }
                 if(eingabe==0)
@@ -119,15 +116,33 @@ public class Spieler
                 }
                 else
                 {
-                    Karte gKarte = (Karte)handkarten.get(eingabe-1);
+                    gKarte = (Karte)handkarten.get(eingabe-1);
                     if(karteErlaubt(gKarte,zahl,typ))
                     {
                         System.out.println("KARTE GESPIELT: " + gKarte.karte());
                         kartenanzahl--;
-                        if(gKarte.getZahl()==8)
+                        if(gKarte.getZahl() != 7 && zaehlerSieben > 0){
+                            System.out.println("Ich musste" + zaehlerSieben *2 + "Karten als Strafe zur 7 ziehen!");
+                            karteZiehenStrafeSieben();                            
+                            zaehlerSieben = 0;
+                        }
+                        else if(gKarte.getZahl() == 7)
+                        {
+                           zaehlerSieben = zaehlerSieben +1;
+                        }
+                        else if(gKarte.getZahl()==8)
+                        {
                             spiel.gibAussetzImpuls();
+                        }
+                        else if(gKarte.getZahl() == 11)
+                        {
+                            System.out.println("Wünsche Dir ein Symbol. Erlaubte Eingaben sind: Karo, Kreuz, Pik, Herz.");
+                            gF = bubeWünscheDirFarbe();
+                            gKarte.setTyp(gF);
+                        }
                         ablageStapel.add((Karte)handkarten.get(eingabe-1));
                         handkarten.remove(eingabe-1);
+                        
                     }
                     else
                     {
@@ -142,25 +157,35 @@ public class Spieler
                 karteZiehen();
             }
         } 
-        else
+         
+        else 
         {
             System.out.println("Diese Eingabe war unültig; Sie ziehen eine Karte und Passen.");
             karteZiehen();
         }
+       
+        
     }
 
+    public String bubeWünscheDirFarbe()
+    {
+        Scanner scanner = new Scanner(System.in);
+        return (String)scanner.next();        
+    }
+    
     protected boolean karteErlaubt(Karte g, int z, String t){
         boolean erlaubt = false;
         if(g.getZahl()==z) 
             erlaubt = true;
         if(g.getTyp().equals(t))
             erlaubt = true;
-        if(t.equals("freieWahl"))
-            erlaubt = true;
+        //if(z==0 && g.getTyp().equals(gewünschteFarbe))
+        //    erlaubt = true;
         if(g.getZahl()==11)
             erlaubt = true;
-        if(g.getZahl()==11 && t.equals("freieWahl"))
+        if(g.getZahl()==11 && z==11)
             erlaubt = false;
+        //System.out.println("Karte Erlaubt:  "+erlaubt + " " + t + " " + z);
         return erlaubt;
     }
 

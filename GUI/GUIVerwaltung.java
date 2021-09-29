@@ -27,15 +27,22 @@ public class GUIVerwaltung {
 	}
 	
 	public void spielerAendern(int spieler) {
-		window.spielerWechseln(spieler);
+		con.spielerWechseln(spieler);
+		gui.spielerWechseln(spieler);
 	}
 	
 	public void komplettNeuesSpiel(int spielerZahl, String mcName, String[] names, boolean[] ki) {
 		int anzahlCom = 0;
 		String[] namen = new String[spielerZahl];
-		
-		
-		new Spiel(spielerZahl, anzahlCom);
+		for(boolean bool : ki) {
+			if(bool) anzahlCom++;
+		}
+		namen[0] = mcName;
+		for(int i = 0; i < spielerZahl - 1; i++) {
+			namen[i + 1] = names[i];
+		}
+		new Spiel(spielerZahl, anzahlCom, namen);
+		refresh();
 	}
 	
 	public void neuesSpiel() {
@@ -57,7 +64,8 @@ public class GUIVerwaltung {
 			names[i] = spieler[i].getName();
 			punkte[i] = spieler[i].berechnePunkte();
 		}
-		window.displayResult(names, punkte);
+		con.displayResult(names, punkte);
+		if(window instanceof Game) gui.displayResult(names, punkte);
 	}
 	
 	public int amZug() {
@@ -70,5 +78,10 @@ public class GUIVerwaltung {
 	
 	public void refresh() {
 		//TODO alles auf neues Spiel vorbereiten
+	}
+	
+	public void informieren(String s) {
+		con.print(s + "\n");
+		gui.addLog(s, true);
 	}
 }

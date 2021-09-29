@@ -333,7 +333,7 @@ public class Consol extends GUIWindow{
 	}
 	
 	@Override
-	public String fabreWuenschen() {
+	public String farbeWuenschen() {
 		print("Du hasst einen Buben gespielt.\nNun kannst du dir die nächste Farbe wünschen.\n Welche soll es sein? Karo, Herz, Pik oder Kreuz?");
 		String farbe = null;
 		String s = lastAdd;
