@@ -31,11 +31,15 @@ public class GUIVerwaltung {
 	}
 	
 	public void komplettNeuesSpiel(int spielerZahl, String mcName, String[] names, boolean[] ki) {
-		//TODO neues Spiel mit neuen Spielern
+		int anzahlCom = 0;
+		String[] namen = new String[spielerZahl];
+		
+		
+		new Spiel(spielerZahl, anzahlCom);
 	}
 	
 	public void neuesSpiel() {
-		//TODO neuesSpiel mit gleichen Spielern
+		Spiel.spiel.newGame();
 	}
 	
 	public MyArrayList<Karte> getHand(int spieler) {
@@ -58,5 +62,13 @@ public class GUIVerwaltung {
 	
 	public int amZug() {
 		return window.amZug();
+	}
+	
+	public String farbeWuenschen() {
+		return window.farbeWuenschen();
+	}
+	
+	public void refresh() {
+		//TODO alles auf neues Spiel vorbereiten
 	}
 }

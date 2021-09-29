@@ -9,5 +9,6 @@ public abstract class GUIWindow {
 	public abstract void spielerWechseln(int spieler);
 	public abstract int displayResult(String[] names, int[] score);
 	public abstract int amZug();
+	public abstract String farbeWuenschen();
 	
 }

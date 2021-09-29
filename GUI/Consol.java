@@ -331,6 +331,34 @@ public class Consol extends GUIWindow{
 	public void show() {
 		consol.setVisible(true);
 	}
+	
+	@Override
+	public String fabreWuenschen() {
+		print("Du hasst einen Buben gespielt.\nNun kannst du dir die nächste Farbe wünschen.\n Welche soll es sein? Karo, Herz, Pik oder Kreuz?");
+		String farbe = null;
+		String s = lastAdd;
+		while(farbe == null) {
+			if(s != lastAdd) {
+				try {
+					TimeUnit.MICROSECONDS.sleep(10);
+				}catch(Exception e) {
+					print("Ups etwas ist schief gelaufen\n");
+					
+				}
+				farbe = s;
+				if(!(farbe.equals("Kreuz") || farbe.equals("Herz") || farbe.equals("Pik") || farbe.equals("Kreuz"))) {
+					print("Du kannst ur zwischen Karo, Herz, Pik oder Kreuz wählen");
+					farbe = null;
+				}
+				s = lastAdd;
+			}
+			//das bracht man sonst crasht die ComplepableFuture und man bekommt kein ergebniss
+			try {
+				TimeUnit.MICROSECONDS.sleep(10);
+			}catch (InterruptedException e) {}
+		}
+		return farbe;
+	}
 }
 
 

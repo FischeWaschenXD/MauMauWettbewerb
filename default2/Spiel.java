@@ -311,4 +311,9 @@ public class Spiel
     public MyArrayList<Karte> getAblageStapel() {
     	return ablegeStapel;
     }
+    
+    public void newGame() {
+    	new Spiel(aAnzahlDerSpieler, aAnzahlDerCOM, aNamen);
+    	rGame.refresh();
+    }
 }

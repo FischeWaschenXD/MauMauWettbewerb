@@ -266,10 +266,13 @@ public class Game extends GUIWindow {
 				TimeUnit.MICROSECONDS.sleep(10);
 			} catch (InterruptedException e) {}
 		}
-		
-		
-		
-		return 0;
+		return kardPlaced;
+	}
+	
+	@Override
+	public String farbeWuenschen() {
+		String[] options = {"Karo", "Herz", "Pik", "Kreuz"};
+		return options[JOptionPane.showOptionDialog(null, "Du hast einen Buben gespielt.\nNun kannst du die nächste Farbe wünschen", "Farbe wünschen", JOptionPane.PLAIN_MESSAGE, JOptionPane.QUESTION_MESSAGE, null, options, options[0])];
 	}
 	
 	//TODO spielerHinzufügen Methode
