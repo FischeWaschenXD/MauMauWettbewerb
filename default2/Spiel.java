@@ -48,7 +48,7 @@ public class Spiel
 
     private void generiereKarten(){
         //Ausgabe
-        System.out.println("Initialisiere die Karten des Spiels!");
+        rGame.informieren("Initialisiere die Karten des Spiels!");
 
         //Stapel
         ablegeStapel = new MyArrayList<Karte>();
@@ -87,33 +87,33 @@ public class Spiel
 
     private void ausgabeBeiderStapel(){
         //Ausgabe des Ablagestapels
-        System.out.println();
-        System.out.println("AUSGABE des ABLAGESTAPEL");
+        rGame.informieren();
+        rGame.informieren("AUSGABE des ABLAGESTAPEL");
         if(!ablegeStapel.isEmpty()){
             for(int i = 0; i < ablegeStapel.size(); i++){
-                System.out.println(((Karte)ablegeStapel.get(i)).karte());
+                rGame.informieren(((Karte)ablegeStapel.get(i)).karte());
             }
         }
         else
         {
-            System.out.println("Keine Karten vorhanden!");
+            rGame.informieren("Keine Karten vorhanden!");
         }
         //Ausgabe des Nachziehstapels
-        System.out.println();
-        System.out.println("AUSGABE des NACHZIEHSTAPEL");
+        rGame.informieren();
+        rGame.informieren("AUSGABE des NACHZIEHSTAPEL");
         if(!ziehStapel.isEmpty()){
             for(int i = 0; i < ziehStapel.size(); i++){
-                System.out.println(((Karte)ziehStapel.get(i)).karte());
+                rGame.informieren(((Karte)ziehStapel.get(i)).karte());
             }
         }
         else
         {
-            System.out.println("Keine Karten vorhanden!");
+            rGame.informieren("Keine Karten vorhanden!");
         }
     }
 
     private void generiereSpieler(){
-        System.out.println("Initialisiere die Spieler des Spiels!");
+        rGame.informieren("Initialisiere die Spieler des Spiels!");
         Spieler lSpieler;
         String lName;
         //Einrichten von n menschlichen Spielern
@@ -125,7 +125,7 @@ public class Spiel
     }
 
     private void generiereSpielerMitKI(int pAnzahlDerCOM){
-        System.out.println("Initialisiere die Spieler und Computer des Spiels!");
+        rGame.informieren("Initialisiere die Spieler und Computer des Spiels!");
         Spieler lSpieler;
         int lAnzahlDerCOM = pAnzahlDerCOM;
         //Einrichten von n menschlichen Spielern
@@ -143,12 +143,12 @@ public class Spiel
             }
             aussetzen = false;
         }
-        else {System.out.println("Fehler! Mehr KIs als Menschen");}
+        else {rGame.informieren("Fehler! Mehr KIs als Menschen");}
     }
 
     private void spielBeginn(){
         //Beide Spieler müssen zunächst mal 5 Karten ziehen bzw. auf die Hand nehmen.
-        System.out.println("Die Spieler ziehen jeweils fünf Karten!");
+        rGame.informieren("Die Spieler ziehen jeweils fünf Karten!");
         int lErsterSpieler;
         if(aAnzahlDerCOM > 0){
             lErsterSpieler = aAnzahlDerCOM;
@@ -162,26 +162,26 @@ public class Spiel
         }
 
         //Die erste Karte des Nachziehstapels wird aufgedeckt und auf dem neuen Ablagestapel gelegt.
-        System.out.println("");
-        System.out.println("Decke die erste Karte des Spiels auf:");
+        rGame.informieren("");
+        rGame.informieren("Decke die erste Karte des Spiels auf:");
         Karte merker = (Karte)ziehStapel.get(0);
         if(merker.getZahl() == 9){
             richtungsWechsel();
         }
         ablegeStapel.add(merker);
         ziehStapel.remove(0);
-        System.out.println("BEGINN des Spiels mit der KARTE " + merker.karte());
+        rGame.informieren("BEGINN des Spiels mit der KARTE " + merker.karte());
         
         //Solange es keinen Sieger gibt wird gespielt, notfalls unendlich oft.
         while(sieg() == null)
         {
             //Der nächste Spieler am Zug wird angsagt.
-            System.out.println("");
-            System.out.println("Nächster Spieler: " + (spielerAmZug+1)%aAnzahlDerSpieler);
+            rGame.informieren("");
+            rGame.informieren("Nächster Spieler: " + (spielerAmZug+1)%aAnzahlDerSpieler);
 
             //Der Spieler müsste möglicherweise aussetzen ...
             if(aussetzen){
-                System.out.println("Ich muss eine Runde aussetzen, die 8 liegt oben!");
+                rGame.informieren("Ich muss eine Runde aussetzen, die 8 liegt oben!");
                 spielerAmZug = (spielerAmZug+1)%aAnzahlDerSpieler;
                 aussetzen = false;
             }
