@@ -1,7 +1,5 @@
 package GUI;
 
-import java.util.ArrayList;
-
 import Utils.GUIWindow;
 import default2.Karte;
 import default2.MyArrayList;
@@ -56,5 +54,9 @@ public class GUIVerwaltung {
 			punkte[i] = spieler[i].berechnePunkte();
 		}
 		window.displayResult(names, punkte);
+	}
+	
+	public int amZug() {
+		return window.amZug();
 	}
 }

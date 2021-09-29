@@ -5,23 +5,19 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
-import java.util.Scanner;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 import Utils.StartCallBack;
 import default2.Karte;
@@ -116,7 +112,7 @@ public class Game extends GUIWindow {
 		
 		
 		JPanel bigCards = new JPanel();
-		CardButton headsDownCard = new CardButton(0, this);
+		CardButton headsDownCard = new CardButton(-1, this);
 		headsDownCard.display(Cards.CARD_BACK, true);
 		headsUpCard = new CardPanel();
 		headsUpCard.display(Cards.CARD_BACK, true);

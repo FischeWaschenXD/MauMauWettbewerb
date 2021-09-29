@@ -248,15 +248,15 @@ public class Consol extends GUIWindow{
 	
 	private String[] generateCard(int rank, String suits) {
 		String[] karteGanz = 
-			{"┌───────────┐",
-			"│" + toRank(rank, true) + "│",
-			"│                      │",
-			"│                      │",
-			"│         " + '\u2009' + getSuits(suits) + '\u200A' + "         │",
-			"│                      │",
-			"│                      │",
-			"│" + toRank(rank, false) + "│",
-			"└───────────┘"};
+			{"\u250C\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510",
+			"\u2502" + toRank(rank, true) + "\u2502",
+			"\u2502                      \u2502",
+			"\u2502                      \u2502",
+			"\u2502         " + '\u2009' + getSuits(suits) + '\u200A' + "         \u2502",
+			"\u2502                      \u2502",
+			"\u2502                      \u2502",
+			"\u2502" + toRank(rank, false) + "\u2502",
+			"\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518"};
 		return karteGanz;
 	}
 	
