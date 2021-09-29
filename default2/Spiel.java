@@ -199,6 +199,9 @@ public class Spiel
 
     private Spieler[] sieg(){
         Spieler[] lGewonnenReihenfolge = new Spieler[aAnzahlDerSpieler];
+	for(int i = 0; i < rSpielerliste.length; i++){
+		lGewonnenReihenfolge[i] = rSpielerliste[i];
+	}
         int lKartenAufHaenden = 0;
         //Spieler 1 siegt mit dem Code 1, wenn er keine Karten mehr auf der Hand hat.
         for(int i = 0; i < aAnzahlDerSpieler; i++){
@@ -209,12 +212,13 @@ public class Spiel
         int lGrenze = 1;
 	int lIndex;
 	while(lGrenze < rSpielerliste.length){
-		temp = rSpielerliste[lGrenze];
+		temp = lGewonnenReihenfolge[lGrenze];
 		lIndex = lGrenze;
-		while(lIndex >= 0 && rSpielerliste[lIndex-1].getKartenanzahl() > temp.getKartenanzahl()){
-			lGewonnenReihenfolge[lIndex] = rSpielerliste[lIndex-1];
+		while(lIndex >= 0 && lGewonnenReihenfolge[lIndex-1].getKartenanzahl() > temp.getKartenanzahl()){
+			lGewonnenReihenfolge[lIndex] = lGewonnenReihenfolge[lIndex-1];
 			lIndex--;
 		}
+		lGewonnenReihenfolge[lIndex] = temp;
 		lGrenze++;
 	}
 	      
