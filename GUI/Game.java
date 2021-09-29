@@ -73,8 +73,6 @@ public class Game extends GUIWindow {
 		});
 		
 		preInit();
-		
-		spielerWechseln(0);
 	}
 	
 	private void neueHand() {

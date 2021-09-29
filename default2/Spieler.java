@@ -74,56 +74,59 @@ public class Spieler
     protected int handkartenAusgeben(){
         int zaehler = 0;
         if(!handkarten.isEmpty()){
-            System.out.print("Deine Karten: [");
-            System.out.print(((Karte)handkarten.get(0)).karte());
+        	Spiel.rGame.informiere("Deine Karten: [");
+        	Spiel.rGame.informiere(((Karte)handkarten.get(0)).karte());
             for(int i = 1; i < handkarten.size(); i++){
-                System.out.print("|");
-                System.out.print(((Karte)handkarten.get(i)).karte());
+            	Spiel.rGame.informiere("|");
+            	Spiel.rGame.informiere(((Karte)handkarten.get(i)).karte());
                 zaehler++;
             }
-            System.out.println("]");
+            Spiel.rGame.informieren("]");
             return zaehler;
         }
         else
         {
-            System.out.println("Sie haben keine Karten mehr auf der Hand!");
+        	Spiel.rGame.informieren("Sie haben keine Karten mehr auf der Hand!");
             return 0;
         }
     }
 
     protected void karteSpielen(int zahl, String typ){
         handkartenAusgeben();
-        System.out.println(">> Geben Sie die Zahl der Karte (ab 1) an, welche Sie spielen möchten.");
-        System.out.println(">> Geben Sie die 0 an, um eine Karte zu ziehen, falls Sie nicht können.");        
-        System.out.println(">> Wenn Sie keine gültige Zahl angeben, ziehen Sie eine Karte und Passen.");
-        Scanner scanner = new Scanner(System.in);
+    	Spiel.rGame.informieren(">> Geben Sie die Zahl der Karte (ab 1) an, welche Sie spielen möchten.");
+    	Spiel.rGame.informieren(">> Geben Sie die 0 an, um eine Karte zu ziehen, falls Sie nicht können.");        
+    	Spiel.rGame.informieren(">> Wenn Sie keine gültige Zahl angeben, ziehen Sie eine Karte und Passen.");
+        Scanner scanner = new Scanner(String.valueOf(Spiel.rGame.amZug()));
         int eingabe;
         Karte gKarte;
-        if(scanner.hasNextInt()){ 
+        if(scanner.hasNextInt()){
             eingabe = (int)scanner.nextInt();
+            scanner.close();
             if(eingabe<=kartenanzahl){
                 if(eingabe==0){
                     karteZiehen();
+                    Spiel.rGame.refresh();
                     handkartenAusgeben();
-                    System.out.println(">> Können Sie nun eine Karte ausspielen?");
-                    System.out.println(">> Geben Sie die 0 an, falls Sie erneut nicht können."); 
-                    scanner = new Scanner(System.in);
+                    Spiel.rGame.informieren(">> Können Sie nun eine Karte ausspielen?");
+                    Spiel.rGame.informieren(">> Geben Sie die 0 an, falls Sie erneut nicht können."); 
+                    scanner = new Scanner(String.valueOf(Spiel.rGame.amZug()));
                     
                     eingabe = (int)scanner.nextInt();
+                    scanner.close();
                 }
                 if(eingabe==0)
                 {
-                    System.out.println("Ich kann immer noch nicht.");
+                	Spiel.rGame.informieren("Ich kann immer noch nicht.");
                 }
                 else
                 {
                     gKarte = (Karte)handkarten.get(eingabe-1);
                     if(karteErlaubt(gKarte,zahl,typ))
                     {
-                        System.out.println("KARTE GESPIELT: " + gKarte.karte());
+                    	Spiel.rGame.informieren("KARTE GESPIELT: " + gKarte.karte());
                         kartenanzahl--;
                         if(gKarte.getZahl() != 7 && zaehlerSieben > 0){
-                            System.out.println("Ich musste" + zaehlerSieben *2 + "Karten als Strafe zur 7 ziehen!");
+                        	Spiel.rGame.informieren("Ich musste" + zaehlerSieben *2 + "Karten als Strafe zur 7 ziehen!");
                             karteZiehenStrafeSieben();                            
                             zaehlerSieben = 0;
                         }
@@ -137,7 +140,7 @@ public class Spieler
                         }
                         else if(gKarte.getZahl() == 11)
                         {
-                            System.out.println("Wünsche Dir ein Symbol. Erlaubte Eingaben sind: Karo, Kreuz, Pik, Herz.");
+                        	Spiel.rGame.informieren("Wünsche Dir ein Symbol. Erlaubte Eingaben sind: Karo, Kreuz, Pik, Herz.");
                             gF = bubeWünscheDirFarbe();
                             gKarte.setTyp(gF);
                         }
@@ -147,21 +150,21 @@ public class Spieler
                     }
                     else
                     {
-                        System.out.println("Diese Karte können Sie nicht legen; Sie ziehen eine Karte und Passen.");
+                    	Spiel.rGame.informieren("Diese Karte können Sie nicht legen; Sie ziehen eine Karte und Passen.");
                         karteZiehen();
                     }
                 }
             } 
             else
             {
-                System.out.println("Diese Karte gibt es nicht; Sie ziehen eine Karte und Passen.");
+            	Spiel.rGame.informieren("Diese Karte gibt es nicht; Sie ziehen eine Karte und Passen.");
                 karteZiehen();
             }
         } 
          
         else 
         {
-            System.out.println("Diese Eingabe war unültig; Sie ziehen eine Karte und Passen.");
+        	Spiel.rGame.informieren("Diese Eingabe war unültig; Sie ziehen eine Karte und Passen.");
             karteZiehen();
         }
        
@@ -170,7 +173,7 @@ public class Spieler
 
     public String bubeWünscheDirFarbe()
     {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(Spiel.rGame.farbeWuenschen());
         return (String)scanner.next();        
     }
     

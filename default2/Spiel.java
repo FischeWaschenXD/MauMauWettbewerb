@@ -19,10 +19,20 @@ public class Spiel
     //Zwei Stapel im System, einer als Ablagestapel, einer als Nachziehstapel.
     private MyArrayList<Karte> ablegeStapel;
     private MyArrayList<Karte> ziehStapel;
-    private GUIVerwaltung rGame;
+    public static GUIVerwaltung rGame;
 
     public Spiel(int pAnzahlDerSpieler, int pAnzahlDerCOM, String[] pNamen)
     {
+    	spiel = this;
+    	
+    	if(rGame == null) rGame = new GUIVerwaltung();
+    	
+    	aAnzahlDerSpieler = pAnzahlDerSpieler;
+
+        aAnzahlDerCOM = pAnzahlDerCOM;
+        
+        aNamen = pNamen;
+    	
         //Generierung der Spielerliste
         rSpielerliste = new Spieler[pAnzahlDerSpieler];
 
@@ -31,25 +41,12 @@ public class Spiel
 
         //Spieler deklarieren und initialisieren: generiereSpieler() für 2x Spieler, generiereSpielerMitKI() für 1x Spieler und 1x PC-Gegner
         generiereSpielerMitKI(pAnzahlDerCOM);
-
+        
         //Spiel initalisieren und beginnen, diese Methode läuft bis zum Sieg
         spielBeginn();
-
-        aAnzahlDerSpieler = pAnzahlDerSpieler;
-
-        aAnzahlDerCOM = pAnzahlDerCOM;
-        
-        aNamen = pNamen;
-        
-        rGame = new GUIVerwaltung();
-        
-        spiel = this;
     }
 
     private void generiereKarten(){
-        //Ausgabe
-        rGame.informieren("Initialisiere die Karten des Spiels!");
-
         //Stapel
         ablegeStapel = new MyArrayList<Karte>();
         ziehStapel = new MyArrayList<Karte>();
@@ -87,7 +84,7 @@ public class Spiel
 
     private void ausgabeBeiderStapel(){
         //Ausgabe des Ablagestapels
-        rGame.informieren();
+        rGame.informieren("");
         rGame.informieren("AUSGABE des ABLAGESTAPEL");
         if(!ablegeStapel.isEmpty()){
             for(int i = 0; i < ablegeStapel.size(); i++){
@@ -99,7 +96,7 @@ public class Spiel
             rGame.informieren("Keine Karten vorhanden!");
         }
         //Ausgabe des Nachziehstapels
-        rGame.informieren();
+        rGame.informieren("");
         rGame.informieren("AUSGABE des NACHZIEHSTAPEL");
         if(!ziehStapel.isEmpty()){
             for(int i = 0; i < ziehStapel.size(); i++){
@@ -129,7 +126,7 @@ public class Spiel
         Spieler lSpieler;
         int lAnzahlDerCOM = pAnzahlDerCOM;
         //Einrichten von n menschlichen Spielern
-        if(pAnzahlDerCOM < (rSpielerliste.length - 1)){
+        if(pAnzahlDerCOM < rSpielerliste.length){
             for(int i = 0; i < rSpielerliste.length; i++){
                 if(lAnzahlDerCOM > 0){
                     lSpieler = new Spieler_KI(i, aNamen[i], ziehStapel, ablegeStapel, this, false);
@@ -210,7 +207,7 @@ public class Spiel
         
         Spieler temp;
         int i, j;  
-        for (i = 1; i < rSpielerliste.length; i++) {  
+        for (i = 0; i < rSpielerliste.length; i++) {  
             temp = rSpielerliste[i];  
             j = i - 1;  
       

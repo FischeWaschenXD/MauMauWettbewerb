@@ -1,5 +1,7 @@
 package GUI;
 
+import java.util.concurrent.TimeUnit;
+
 import Utils.GUIWindow;
 import default2.Karte;
 import default2.MyArrayList;
@@ -11,13 +13,17 @@ public class GUIVerwaltung {
 	Game gui;
 	Consol con;
 	
+	boolean init = false;
+	
 	public static void main(String[] argv) {
-		GUIVerwaltung test = new GUIVerwaltung();
+		String[] arr = {"Tom", "Peter"};
+		new Spiel(2, 1, arr);
 	}
 	
 	public GUIVerwaltung() {
 		gui = new Game(this);
 		con = new Consol(this);
+		window = con;
 	}
 	
 	public void eingabeMethodeAendern(boolean consol) {
@@ -32,6 +38,7 @@ public class GUIVerwaltung {
 	}
 	
 	public void komplettNeuesSpiel(int spielerZahl, String mcName, String[] names, boolean[] ki) {
+		init = true;
 		int anzahlCom = 0;
 		String[] namen = new String[spielerZahl];
 		for(boolean bool : ki) {
@@ -46,6 +53,7 @@ public class GUIVerwaltung {
 	}
 	
 	public void neuesSpiel() {
+		init = true;
 		Spiel.spiel.newGame();
 	}
 	
@@ -69,6 +77,11 @@ public class GUIVerwaltung {
 	}
 	
 	public int amZug() {
+		while(!init) {
+			try {
+				TimeUnit.MICROSECONDS.sleep(100);
+			}catch(InterruptedException e) {}
+		}
 		return window.amZug();
 	}
 	
@@ -81,7 +94,17 @@ public class GUIVerwaltung {
 	}
 	
 	public void informieren(String s) {
+		if(con == null) return;
+		
 		con.print(s + "\n");
 		gui.addLog(s, true);
+	}
+	
+	public void informiere(String s) {
+		if(init == false) return;
+		if(con == null) return;
+		
+		con.print(s);
+		gui.addLog(s);
 	}
 }

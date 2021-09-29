@@ -14,14 +14,36 @@ public class Spieler_KI extends Spieler
             gKarte = (Karte)handkarten.get(i);
             if(karteErlaubt(gKarte,zahl,typ))
             {
-                System.out.println("KARTE GESPIELT: " + gKarte.karte());
+            	Spiel.rGame.informieren("KARTE GESPIELT: " + gKarte.karte());
                 kartenanzahl--;
                 if(gKarte.getZahl()==8)
                     spiel.gibAussetzImpuls();
+                    else if(gKarte.getZahl()==11)
+                {
+                   double zufallszahl = Math.random();
+                   if(zufallszahl < 0.25)
+                   {
+                      gF = "Karo";  
+                      
+                   }
+                   else if(zufallszahl >= 0.25 && zufallszahl < 0.5)
+                   {
+                      gF = "Herz";                      
+                   }
+                   else if(zufallszahl >= 0.5 && zufallszahl < 0.75)
+                   {
+                      gF = "Pik";                      
+                   }
+                   else if(zufallszahl >= 0.75)
+                   {
+                      gF = "Kreuz";                      
+                   }
+                   Spiel.rGame.informieren("Ich wünsche mir " + gF);
+                }
                 ablageStapel.add((Karte)handkarten.get(i));
                 handkarten.remove(i);
                 weiter = false;
-                System.out.println("Ich habe noch " + kartenanzahl + " Karte(n).");
+                Spiel.rGame.informieren("Ich habe noch " + kartenanzahl + " Karte(n).");
             }
             else
             {
@@ -33,16 +55,37 @@ public class Spieler_KI extends Spieler
             gKarte = (Karte)handkarten.get(handkarten.size()-1);
             if(karteErlaubt(gKarte,zahl,typ))
             {
-                System.out.println("KARTE GESPIELT: " + gKarte.karte());
+            	Spiel.rGame.informieren("KARTE GESPIELT: " + gKarte.karte());
                 kartenanzahl--;
                 if(gKarte.getZahl()==8)
                     spiel.gibAussetzImpuls();
+                else if(gKarte.getZahl()==11)
+                {
+                   double zufallszahl = Math.random();
+                   if(zufallszahl < 0.25)
+                   {
+                      gF = "Karo";                      
+                   }
+                   else if(zufallszahl >= 0.25 && zufallszahl < 0.5)
+                   {
+                      gF = "Herz";                      
+                   }
+                   else if(zufallszahl >= 0.5 && zufallszahl < 0.75)
+                   {
+                      gF = "Pik";                      
+                   }
+                   else if(zufallszahl >= 0.75)
+                   {
+                      gF = "Kreuz";                      
+                   }
+                   Spiel.rGame.informieren("Ich wünsche mir " + gF);
+                }
                 ablageStapel.add((Karte)handkarten.get(handkarten.size()-1));
                 handkarten.remove(handkarten.size()-1);
-                System.out.println("Ich habe noch " + kartenanzahl + " Karte(n).");
+                Spiel.rGame.informieren("Ich habe noch " + kartenanzahl + " Karte(n).");
             }else{
-                System.out.println("Ich habe noch " + kartenanzahl + " Karte(n).");
-                System.out.println("Ich kann nicht spielen, Sie sind am Zug!");
+            	Spiel.rGame.informieren("Ich habe noch " + kartenanzahl + " Karte(n).");
+            	Spiel.rGame.informieren("Ich kann nicht spielen, Sie sind am Zug!");
             }
         }
     }
