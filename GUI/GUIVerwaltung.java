@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import Utils.GUIWindow;
 import default2.Karte;
+import default2.MyArrayList;
+import default2.Spiel;
+import default2.Spieler;
 
 public class GUIVerwaltung {
 	GUIWindow window;
@@ -37,22 +40,21 @@ public class GUIVerwaltung {
 		//TODO neuesSpiel mit gleichen Spielern
 	}
 	
-	public ArrayList<Karte> getHand(int spieler) {
-		//TODO holt sich die hand von Spieler von 0-3
-		ArrayList<Karte> list = new ArrayList<Karte>();
-		list.add(new Karte(7, "Pik"));
-		list.add(new Karte(8, "Pik"));
-		list.add(new Karte(9, "Pik"));
-		list.add(new Karte(10, "Pik"));
-		list.add(new Karte(11, "Pik"));
-		list.add(new Karte(12, "Pik"));
-		list.add(new Karte(13, "Pik"));
-		list.add(new Karte(14, "Pik"));
-		return list;
+	public MyArrayList<Karte> getHand(int spieler) {
+		return Spiel.spiel.getSpielerListe()[spieler].getHandKarten();
 	}
 	
 	public Karte getTopKarte() {
-		//TODO oberste gelegte Karte returnen
-		return new Karte(8, "Pik");
+		return Spiel.spiel.getAblageStapel().get(Spiel.spiel.getAblageStapel().size() - 1);
+	}
+	
+	public void gewonnen(Spieler[] spieler) {
+		String[] names = new String[spieler.length];
+		int[] punkte = new int[spieler.length];
+		for(int i = 0; i < spieler.length; i++) {
+			names[i] = spieler[i].getName();
+			punkte[i] = spieler[i].getPunkte();
+		}
+		window.displayResult(names, punkte);
 	}
 }

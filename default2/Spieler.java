@@ -193,4 +193,12 @@ public class Spieler
     public boolean istMensch(){
         return aIstMensch;
     }
+    
+    public String getName() {
+    	return aName;
+    }
+    
+    public MyArrayList<Karte> getHandKarten() {
+    	return handkarten;
+    }
 }

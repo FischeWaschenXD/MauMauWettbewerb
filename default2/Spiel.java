@@ -4,6 +4,8 @@ import GUI.GUIVerwaltung;
 
 public class Spiel
 {
+	public static Spiel spiel;
+	
     //Liste um eine Liste mit 2-4 Spielern zu erstellen
     private Spieler[] rSpielerliste;
     private int aAnzahlDerSpieler;
@@ -40,6 +42,8 @@ public class Spiel
         aNamen = pNamen;
         
         rGame = new GUIVerwaltung();
+        
+        spiel = this;
     }
 
     private void generiereKarten(){
@@ -296,5 +300,13 @@ public class Spiel
             }
             rSpielerliste = lHilfsfeld;
         }
+    }
+    
+    public Spieler[] getSpielerListe() {
+    	return rSpielerliste;
+    }
+    
+    public MyArrayList<Karte> getAblageStapel() {
+    	return ablegeStapel;
     }
 }
