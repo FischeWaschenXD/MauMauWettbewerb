@@ -151,9 +151,9 @@ public class Spiel
         }
         else{lErsterSpieler = 0;}
         rSpielerliste[lErsterSpieler].mischeStapelNeu();
-        for(int i = 5; i > 0; i--){
-            for(int j = 0; i > 4; i++){
-                rSpielerliste[i].karteZiehen();
+        for(int j = 0; j < aAnzahlDerSpieler; j++){
+            for(int i = 5; i > 0; i--){
+                rSpielerliste[j].karteZiehen();
             }
         }
 
