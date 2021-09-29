@@ -206,18 +206,29 @@ public class Spiel
         }
         
         Spieler temp;
-        int i, j;  
-        for (i = 0; i < rSpielerliste.length; i++) {  
+        int lGrenze = 1;
+	int lIndex;
+	while(lGrenze < rSpielerliste.length){
+		temp = rSpielerliste[lGrenze];
+		lIndex = lGrenze;
+		while(lIndex >= 0 && rSpielerliste[lIndex-1].getKartenanzahl() > temp.getKartenanzahl()){
+			lGewonnenReihenfolge[lIndex] = rSpielerliste[lIndex-1];
+			lIndex--;
+		}
+		lGrenze++;
+	}
+	      
+        /*for (i = 0; i < rSpielerliste.length; i++) {  
             temp = rSpielerliste[i];  
             j = i - 1;  
       
-            while(j>=0 && temp.getKartenanzahl() <= rSpielerliste[j].getKartenanzahl())  /* Move the elements greater than temp to one position ahead from their current position*/  
+            while(j>=0 && temp.getKartenanzahl() <= rSpielerliste[j].getKartenanzahl())  /* Move the elements greater than temp to one position ahead from their current position  
             {    
                 lGewonnenReihenfolge[j+1] = rSpielerliste[j];     
                 j = j-1;    
             }    
             lGewonnenReihenfolge[j+1] = temp;    
-        }  
+        }  */
         
         if(lGewonnenReihenfolge[0].getKartenanzahl()==0 || lKartenAufHaenden==29)
             return lGewonnenReihenfolge;
