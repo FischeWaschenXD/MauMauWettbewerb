@@ -185,7 +185,7 @@ public class Spiel
                 spielerAmZug = (spielerAmZug+1)%aAnzahlDerSpieler;
                 aussetzen = false;
             }
-
+ 
             //... wenn nicht, darf er den Zug ausführen.
             else
             {
