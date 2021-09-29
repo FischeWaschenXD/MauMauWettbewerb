@@ -254,28 +254,30 @@ public class Spiel
 
     private void spielZug(){
         //Je nachdem welcher SpielerAmZug ist (Code 0 = Spieler 1, Code 1 = Spieler 2), darf der Spieler einen Zug ausführen.
+        int letzteZahl = ablegeStapel.get(ablegeStapel.size()-1).getZahl();
+        String letzterTyp = ablegeStapel.get(ablegeStapel.size()-1).getTyp();
         if(spielerAmZug==0){
-            rSpielerliste[0].karteSpielen();
+            rSpielerliste[0].karteSpielen(letzteZahl, letzterTyp);
             if(ablegeStapel.get(ablegeStapel.size()-1).getZahl() == 9){
-            richtungsWechsel();
+                richtungsWechsel();
             }
         }
         else if (spielerAmZug==1){
-            rSpielerliste[1].karteSpielen();
+            rSpielerliste[1].karteSpielen(letzteZahl, letzterTyp);
             if(ablegeStapel.get(ablegeStapel.size()-1).getZahl() == 9){
-            richtungsWechsel();
+                richtungsWechsel();
             }
         }
         else if (spielerAmZug==2){
-            rSpielerliste[2].karteSpielen();
+            rSpielerliste[2].karteSpielen(letzteZahl, letzterTyp);
             if(ablegeStapel.get(ablegeStapel.size()-1).getZahl() == 9){
-            richtungsWechsel();
+                richtungsWechsel();
             }
         }
         else if (spielerAmZug==3){
-            rSpielerliste[3].karteSpielen();
+            rSpielerliste[3].karteSpielen(letzteZahl, letzterTyp);
             if(ablegeStapel.get(ablegeStapel.size()-1).getZahl() == 9){
-            richtungsWechsel();
+                richtungsWechsel();
             }
         }
     }
