@@ -173,12 +173,12 @@ public class Spiel
         {
             //Der nächste Spieler am Zug wird angsagt.
             System.out.println("");
-            System.out.println("Nächster Spieler: " + (spielerAmZug+1));
+            System.out.println("Nächster Spieler: " + (spielerAmZug+1)%aAnzahlDerSpieler);
 
             //Der Spieler müsste möglicherweise aussetzen ...
             if(aussetzen){
                 System.out.println("Ich muss eine Runde aussetzen, die 8 liegt oben!");
-                spielerAmZug = (spielerAmZug+1)%4;
+                spielerAmZug = (spielerAmZug+1)%aAnzahlDerSpieler;
                 aussetzen = false;
             }
 
@@ -186,7 +186,7 @@ public class Spiel
             else
             {
                 spielZug();
-                spielerAmZug = (spielerAmZug+1)%4;
+                spielerAmZug = (spielerAmZug+1)%aAnzahlDerSpieler;
             }
         }
 
@@ -270,12 +270,15 @@ public class Spiel
     }
     
     public void richtungsWechsel(){
-        Spieler[] lHilfsfeld = new Spieler[rSpielerliste.length];
-        int lIndex = 0;
-        for(int i = rSpielerliste.length-1; i>=0; i--){
-            lHilfsfeld[lIndex] = rSpielerliste[i];
-            lIndex++;
+        if(aAnzahlDerSpieler > 2){
+            
+            Spieler[] lHilfsfeld = new Spieler[rSpielerliste.length];
+            int lIndex = 0;
+            for(int i = rSpielerliste.length-1; i>=0; i--){
+                lHilfsfeld[lIndex] = rSpielerliste[i];
+                lIndex++;
+            }
+            rSpielerliste = lHilfsfeld;
         }
-        rSpielerliste = lHilfsfeld;
     }
 }
