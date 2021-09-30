@@ -36,7 +36,7 @@ public class Consol extends GUIWindow{
 	public Consol(GUIVerwaltung verwaltung) {
 		this.verwaltung = verwaltung;
 		
-		KeyInput input; 
+		KeyInput input;  
 		
 		consol = new JFrame("Consol");
 		
