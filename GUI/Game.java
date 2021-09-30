@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.Box;
@@ -20,8 +21,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import Utils.StartCallBack;
-import default2.Karte;
-import default2.MyArrayList;
 import Utils.Card;
 import Utils.CardButton;
 import Utils.CardPanel;
@@ -36,7 +35,7 @@ public class Game extends GUIWindow {
 	private JTextArea ausgabeFeld;
 	
 	private JScrollPane handKartenScroll;
-	private JPanel[] handKarten;
+	private JPanel[] handKarten = new JPanel[4];
 	
 	private JLabel playerNow;
 	private JLabel playerNumber;
@@ -61,14 +60,7 @@ public class Game extends GUIWindow {
 				postInit(spielerZahl, mcName, names, ki);
 				frame.setVisible(true);
 				
-				karteHinzufuegen(Cards.HERZ_12, 0);
-				karteHinzufuegen(Cards.HERZ_9, 0);
-				karteHinzufuegen(Cards.HERZ_11, 0);
-				karteHinzufuegen(Cards.HERZ_8, 0);
-				karteHinzufuegen(Cards.HERZ_10, 0);
-				karteHinzufuegen(Cards.HERZ_7, 0);
-				karteHinzufuegen(Cards.HERZ_14, 0);
-				karteHinzufuegen(Cards.PIK_10, 0);
+				verwaltung.refresh();
 			}
 		});
 		
@@ -180,7 +172,7 @@ public class Game extends GUIWindow {
 	}
 	
 	public void ablageStapelAendern(Cards card) {
-		headsUpCard.display(card);
+		headsUpCard.display(card, true);
 	}
 	
 	public void ablageStapelAendern(CardButton button) {
@@ -213,17 +205,31 @@ public class Game extends GUIWindow {
 		JOptionPane.showOptionDialog(null, "Nun ist Spieler ... dran", "Näachster Spieler", JOptionPane.PLAIN_MESSAGE, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 		//TODO spielernamen hinzufügen
 		handKartenScroll.setViewportView(handKarten[player]);
+		handKartenScroll.repaint();
+		handKarten[player].list();
+		handKarten[player].repaint();
 	}
 	
+//	private void removeAll() {
+//		for(handKarten[0].list();) {
+//			
+//		}
+//	}
+	
 	private void updateHand(int spieler) {
-		MyArrayList<Karte> hand = verwaltung.getHand(spieler);
+		ArrayList<Cards> hand = verwaltung.getHand(spieler);
+		for(Cards card : hand) {
+			System.out.println(card.farbe + " " + card.nummer);
+		}
 		handKarten[spieler] = new JPanel();
 		handKarten[spieler].setLayout(new BoxLayout(handKarten[spieler], BoxLayout.X_AXIS));
 		for(int i = 0; i < hand.size(); i++) {
-			CardButton card = new CardButton(verwaltung.getHand(spieler).size(), this);
-			card.display(Cards.valueOf(hand.get(i).getTyp().toUpperCase() + "_" + hand.get(i).getZahl()));
+			System.out.println(i);
+			CardButton card = new CardButton(i, this);
+			card.display(hand.get(i));
 			handKarten[spieler].add(card);
 		}
+		handKarten[spieler].repaint();
 	}
 	
 	/**

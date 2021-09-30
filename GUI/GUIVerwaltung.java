@@ -1,12 +1,13 @@
 package GUI;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+import Utils.Cards;
 import Utils.GUIWindow;
-import default2.Karte;
-import default2.MyArrayList;
 import default2.Spiel;
-import default2.Spieler;
+import default2.SpielNeu;
+import default2.SpielerNeu;
 
 public class GUIVerwaltung {
 	GUIWindow window;
@@ -15,10 +16,10 @@ public class GUIVerwaltung {
 	
 	boolean init = false;
 	
-	public static void main(String[] argv) {
-		String[] arr = {"Tom", "Peter"};
-		new Spiel(2, 1, arr);
-	}
+//	public static void main(String[] argv) {
+//		String[] arr = {"Tom", "Peter"};
+//		new Spiel(2, 1, arr);
+//	}
 	
 	public GUIVerwaltung() {
 		gui = new Game(this);
@@ -38,50 +39,40 @@ public class GUIVerwaltung {
 	}
 	
 	public void komplettNeuesSpiel(int spielerZahl, String mcName, String[] names, boolean[] ki) {
-		init = true;
-		int anzahlCom = 0;
-		String[] namen = new String[spielerZahl];
-		for(boolean bool : ki) {
-			if(bool) anzahlCom++;
-		}
-		namen[0] = mcName;
-		for(int i = 0; i < spielerZahl - 1; i++) {
-			namen[i + 1] = names[i];
-		}
-		new Spiel(spielerZahl, anzahlCom, namen);
+		new SpielNeu(spielerZahl, mcName, names, ki);
 		refresh();
 	}
 	
 	public void neuesSpiel() {
 		init = true;
-		Spiel.spiel.newGame();
+		SpielNeu.spiel.newGame();
 	}
 	
-	public MyArrayList<Karte> getHand(int spieler) {
-		return Spiel.spiel.getSpielerListe()[spieler].getHandKarten();
+	public ArrayList<Cards> getHand(int spieler) {
+		return SpielNeu.spiel.getSpielerListe()[spieler].getHandKarten();
 	}
 	
-	public Karte getTopKarte() {
-		return Spiel.spiel.getAblageStapel().get(Spiel.spiel.getAblageStapel().size() - 1);
+	public Cards getTopKarte() {
+		return SpielNeu.spiel.getTop();
 	}
 	
-	public void gewonnen(Spieler[] spieler) {
+	public void gewonnen(SpielerNeu[] spieler) {
 		String[] names = new String[spieler.length];
 		int[] punkte = new int[spieler.length];
 		for(int i = 0; i < spieler.length; i++) {
 			names[i] = spieler[i].getName();
-			punkte[i] = spieler[i].berechnePunkte();
+			punkte[i] = spieler[i].berechneScore();
 		}
 		con.displayResult(names, punkte);
 		if(window instanceof Game) gui.displayResult(names, punkte);
 	}
 	
 	public int amZug() {
-		while(!init) {
-			try {
-				TimeUnit.MICROSECONDS.sleep(100);
-			}catch(InterruptedException e) {}
-		}
+//		while(!init) {
+//			try {
+//				TimeUnit.MICROSECONDS.sleep(100);
+//			}catch(InterruptedException e) {}
+//		}
 		return window.amZug();
 	}
 	
@@ -90,7 +81,8 @@ public class GUIVerwaltung {
 	}
 	
 	public void refresh() {
-		//TODO alles auf neues Spiel vorbereiten
+		gui.ablageStapelAendern(SpielNeu.spiel.getTop());
+		gui.spielerWechseln(SpielNeu.spiel.getAktuellerSpieler());
 	}
 	
 	public void informieren(String s) {

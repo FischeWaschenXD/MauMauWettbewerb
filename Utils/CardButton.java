@@ -23,6 +23,7 @@ public class CardButton extends JButton{
 	
 	public CardButton(int pos, Game game) {
 		addActionListener(pos, game);
+		System.out.println(pos);
 	}
 	
 	public void display(Cards card, boolean big) {
@@ -45,7 +46,10 @@ public class CardButton extends JButton{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				game.kardPlaced = pos + 1;
+				Game lGame = game;
+				int lPos = pos;
+				lGame.kardPlaced = lPos + 1;
+				System.out.println(lPos);
 			}
 		});
 	}

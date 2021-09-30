@@ -60,8 +60,8 @@ public enum Cards {
 	int w;
 	int h;
 	int pos;
-	String farbe;
-	int nummer;
+	public String farbe;
+	public int nummer;
 	
 	Cards(Cards card) {
 		this.x = card.x;
@@ -81,5 +81,50 @@ public enum Cards {
 		this.pos = pos;
 		this.farbe = farbe;
 		this.nummer = nummer;
+	}
+	
+	public boolean isSpecial() {
+		switch(this.nummer) {
+		case 7:
+		case 8:
+		case 9:
+		case 11:
+			return true;
+		default:
+			return false;
+		}
+	}
+	
+	public boolean fits(Cards drauflegeKarte /*karte die auf this draufgelegt wird*/) {
+		if(this.nummer == 11 && drauflegeKarte.nummer == 11) {
+			return false;
+		}
+		if(this.nummer == drauflegeKarte.nummer || this.farbe.equals(drauflegeKarte.farbe) || drauflegeKarte.nummer == 11) {
+			return true;
+		}
+		return false;
+	}
+	
+	public int punkte() {
+		switch(this.nummer) {
+		case 7:
+			return 7;
+        case 8:
+        	return 8;
+        case 9:
+        	return 9;
+        case 10:
+        	return 10;
+        case 11:
+        	return 20;
+        case 12:
+        	return 3;
+        case 13:
+        	return 4;
+        case 14:
+        	return 11;
+        default:
+        	return 0;
+		}
 	}
 }

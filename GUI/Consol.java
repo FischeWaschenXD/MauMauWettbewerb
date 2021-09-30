@@ -11,15 +11,16 @@ import java.util.concurrent.TimeUnit;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import Utils.Cards;
 import Utils.GUIWindow;
 import Utils.KeyInput;
-import default2.Karte;
-import default2.MyArrayList;
 
 public class Consol extends GUIWindow{
 	private JFrame consol;
@@ -75,6 +76,20 @@ public class Consol extends GUIWindow{
 		
 		bottomBar.add(consolInput);
 		bottomBar.add(consolButton);
+		
+		JMenuBar menuBar = new JMenuBar();
+		JMenuItem item = new JMenuItem("Zum GUI wechseln");
+		item.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				verwaltung.eingabeMethodeAendern(false);
+			}
+		});
+		menuBar.add(item);
+		
+		
+		consol.setJMenuBar(menuBar);
 		
 		consol.add(scroll, BorderLayout.CENTER);
 		consol.add(bottomBar, BorderLayout.SOUTH);
@@ -222,22 +237,22 @@ public class Consol extends GUIWindow{
 		
 		print("Oberste Karte:\n");
 		
-		for(String s : generateCard(verwaltung.getTopKarte().getZahl(), verwaltung.getTopKarte().getTyp())) {
+		for(String s : generateCard(verwaltung.getTopKarte().nummer, verwaltung.getTopKarte().farbe)) {
 			print(s + "\n");
 		}
 		
 		print("Deine Hand:\n");
 		
-		MyArrayList<Karte> hand = verwaltung.getHand(spieler);
+		ArrayList<Cards> hand = verwaltung.getHand(spieler);
 		String[] stringHand = {"", "", "", "", "", "", "", "", ""};
 		for(int i = 0; i < hand.size() - 1; i++) {
-			Karte karte = hand.get(i);
-			String[] arr = generateCard(karte.getZahl(), karte.getTyp());
+			Cards karte = hand.get(i);
+			String[] arr = generateCard(karte.nummer, karte.farbe);
 			for(int j = 0; j < arr.length; j++) {
 				stringHand[j] += arr[j];
 			}
 		}
-		String[] arr = generateCard(hand.get(hand.size() - 1).getZahl(), hand.get(hand.size() - 1).getTyp());
+		String[] arr = generateCard(hand.get(hand.size() - 1).nummer, hand.get(hand.size() - 1).farbe);
 		for(int j = 0; j < arr.length; j++) {
 			stringHand[j] += arr[j];
 		}
