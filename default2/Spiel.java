@@ -1,4 +1,4 @@
-package default2;
+package default2; 
 
 import GUI.GUIVerwaltung;
 
